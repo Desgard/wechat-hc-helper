@@ -43,12 +43,13 @@ def new_friends(msg):
 def exist_friends(msg):
     if valid_msg(msg):
         msg.sender.send('点击加群')
-        group = bot.groups().search("字节跳动实习内推")
+        group = bot.groups().search("Sepicat")
         if len(group) <= 0:
             msg.sender.send('读取群信息失败')
         else:
             msg.sender.send('读取群信息成功')
-        group[0].add_members(msg.sender, use_invitation=True)
+            msg.sender.send(group[0].name)
+        group[0].add_members(users=[msg.sender], use_invitation=True)
 
     else:
         msg.sender.send('hello {user_name},忘记填写加群口令了,去填写吧'.format(user_name=msg.sender.name))
