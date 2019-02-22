@@ -1,8 +1,15 @@
 from wxpy import *
 import os
 
+
+GROUP_NAME = "字节跳动实习内推"
 bot = Bot(console_qr=True, cache_path=True)
 friends = bot.friends
+
+related_group: Group = None
+if len(bot.groups().search(GROUP_NAME)) > 0:
+    related_group = bot.groups().search(GROUP_NAME)[0]
+
 
 def valid_msg(msg):
     '''
@@ -20,7 +27,7 @@ def invite(user):
     :param bot: Bot 对象
     :return:
     '''
-    group = bot.groups().search("Sepicat")
+    group = bot.groups().search("")
     user.send(group.name)
     if len(group) > 0:
         group[0].add_members(user, use_invitation=True)
@@ -42,18 +49,25 @@ def new_friends(msg):
 
 @bot.register(Friend, msg_types=TEXT)
 def exist_friends(msg):
+    """
+    处理邀请加群信息
+    :param msg:
+    :return:
+    """
     if valid_msg(msg):
         msg.sender.send('点击加群')
-        group = bot.groups().search("字节跳动实习内推")
+        group = bot.groups().search(GROUP_NAME)
         if len(group) <= 0:
             msg.sender.send('读取群信息失败')
         else:
-            msg.sender.send('读取群信息成功')
             msg.sender.send(group[0].name)
             gp = group[0]
             len_mem = len(gp.members)
+            global related_group
+            related_group = gp
             if len_mem >= 100:
-                gp.add_members(users=[msg.sender], use_invitation=True)
+                # gp.add(users=[msg.sender], use_invitation=True)
+                msg.sender.send("自动拉好友接口失效，等待手动拉好友。")
             else:
                 msg.sender.send_image(os.path.join(os.getcwd(), 'qrcode.jpg'))
 
