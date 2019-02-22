@@ -1,5 +1,9 @@
 from wxpy import *
+from .bytedance import valid_bytedance_jd_query, query_bytedance_jd
+from log import logger
+
 import os
+import json
 
 
 GROUP_NAME = "字节跳动实习内推"
@@ -73,5 +77,26 @@ def exist_friends(msg):
 
     else:
         msg.sender.send('hello {user_name},忘记填写加群口令了,去填写吧'.format(user_name=msg.sender.name))
+
+
+@bot.register(bot.groups(), msg_types=TEXT)
+def reply_bytedance_jd(msg):
+    if msg.is_at:
+        logger.info('text - {text}'.format(text=msg.text))
+        query_res = valid_bytedance_jd_query(msg=msg)
+        logger.info('query_res - {res}'.format(res=query_res))
+        if query_res is not None:
+            network_res = query_bytedance_jd(query=query_res)
+            desc = ""
+            for item in network_res:
+                desc += "【{name}】 {base} {summary} \n {desc}\n\n".format(
+                    name=item['name'],
+                    base=item['base'],
+                    summary=item['summary'],
+                    desc=item['description'])
+            msg.sender.send(desc)
+        else:
+            msg.sender.send('搜索失败')
+
 
 embed()
