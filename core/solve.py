@@ -9,7 +9,7 @@ import json
 
 
 GROUP_NAME = "Sepicat"
-bot = Bot(console_qr=True, cache_path=True)
+bot = Bot(console_qr=False, cache_path=True)
 friends = bot.friends
 
 related_group: Group = None
@@ -97,7 +97,7 @@ def reply_bytedance_jd(msg):
                     summary=item['summary'],
                     desc=item['description'])
             msg.sender.send(desc)
-        elif str(msg.text).find("来一题") >= 0:
+        elif str(msg.text).find("来一题") >= 0 or str(msg.text).find("换一题"):
             resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
             soup = BeautifulSoup(resp.content)
             title = soup.head.title.text
