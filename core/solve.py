@@ -104,6 +104,6 @@ def reply_bytedance_jd(msg):
             url = resp.url
             msg.sender.send(f"{title}\n{url}")
         else:
-            msg.sender.send("我不懂，让冬瓜回答你")
+            msg.sender.send("我不懂，自己想。想明白了告我。")
 
 embed()
