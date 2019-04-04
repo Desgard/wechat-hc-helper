@@ -1,12 +1,14 @@
 from wxpy import *
 from .bytedance import valid_bytedance_jd_query, query_bytedance_jd
 from log import logger
+from bs4 import BeautifulSoup
 
 import os
+import requests
 import json
 
 
-GROUP_NAME = "字节跳动实习内推"
+GROUP_NAME = "Sepicat"
 bot = Bot(console_qr=True, cache_path=True)
 friends = bot.friends
 
@@ -95,8 +97,13 @@ def reply_bytedance_jd(msg):
                     summary=item['summary'],
                     desc=item['description'])
             msg.sender.send(desc)
+        elif str(msg.text).find("来一题") >= 0:
+            resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
+            soup = BeautifulSoup(resp.content)
+            title = soup.head.title.text
+            url = resp.url
+            msg.sender.send(f"{title}\n{url}")
         else:
-            msg.sender.send('搜索失败')
-
+            msg.sender.send("我不懂，让冬瓜回答你")
 
 embed()

@@ -10,6 +10,7 @@ wxpy = {index = "https://pypi.doubanio.com/simple/",version = "*"}
 pillow = "*"
 requests = "*"
 ipython = "*"
+bs4 = "*"
 
 [requires]
 python_version = "3.6.6"

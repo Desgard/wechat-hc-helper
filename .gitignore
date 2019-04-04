@@ -1,2 +1,4 @@
 .idea/
 wxpy.pkl
+core/__pycache__/
+log/
