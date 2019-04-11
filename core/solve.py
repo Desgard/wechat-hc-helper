@@ -103,6 +103,11 @@ def reply_bytedance_jd(msg):
             title = soup.head.title.text
             url = resp.url
             msg.sender.send(f"{title}\n{url}")
+        elif str(msg.text).lower().find("testflight") >= 0:
+            sepicat_url = "https://testflight.apple.com/join/4ojQCz8z"
+            _996calendar_url = "https://testflight.apple.com/join/G5anpfKw"
+            text = f'Sepicat: {sepicat_url}\n996日历: {_996calendar_url}'
+            msg.sender.send(text)
         else:
             msg.sender.send("我不懂，自己想。想明白了告我。")
 
