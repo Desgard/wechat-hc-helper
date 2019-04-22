@@ -123,6 +123,9 @@ def reply_bytedance_jd(msg):
         elif str(msg.text).find("开车") >= 0:
             text = f'开车就去: https://pornhub.com\n晕车请去: https://github.com'
             msg.sender.send(text)
+        elif str(msg.text).find("我不懂，自己想。想明白了告我") >= 0:
+            text = f'那就死锁了'
+            msg.sender.send(text)
         else:
             msg.sender.send("我不懂，自己想。想明白了告我。")
 
