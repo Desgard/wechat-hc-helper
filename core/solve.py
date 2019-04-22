@@ -148,7 +148,7 @@ def reply_bytedance_jd(msg):
             text = f'别总叫冬瓜，冬瓜是你爸爸吗？'
             msg.sender.send(text)
 
-        elif fetch("我不懂，自己想。想明白了告我") >= 0:
+        elif fetch("我不懂，自己想。想明白了告我"):
             text = f'那就死锁了'
             msg.sender.send(text)
 
