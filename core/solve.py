@@ -125,7 +125,7 @@ def reply_bytedance_jd(msg):
             msg.sender.send(text)
 
         # 傻屌对话语录
-        elif fetch("开车") >= 0:
+        elif fetch("开车"):
             text = f'开车就去: https://pornhub.com\n晕车请去: https://github.com'
             msg.sender.send(text)
 
