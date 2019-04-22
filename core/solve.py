@@ -89,7 +89,7 @@ def reply_bytedance_jd(msg):
         logger.info('query_res - {res}'.format(res=query_res))
 
         def fetch(text: str) -> bool:
-            return str(msg.text).lower().find(str) >= 0
+            return str(msg.text).find(text) >= 0
 
         if query_res is not None:
             network_res = query_bytedance_jd(query=query_res)
