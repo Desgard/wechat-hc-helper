@@ -87,6 +87,10 @@ def reply_bytedance_jd(msg):
         logger.info('text - {text}'.format(text=msg.text))
         query_res = valid_bytedance_jd_query(msg=msg)
         logger.info('query_res - {res}'.format(res=query_res))
+
+        def fetch(text: str) -> bool:
+            return str(msg.text).lower().find(str) >= 0
+
         if query_res is not None:
             network_res = query_bytedance_jd(query=query_res)
             desc = ""
@@ -118,14 +122,34 @@ def reply_bytedance_jd(msg):
                     text += f'{dic["desc"]}\n'
             if len(text) <= 0:
                 text = "未获取到有效资源"
-
             msg.sender.send(text)
-        elif str(msg.text).find("开车") >= 0:
+
+        # 傻屌对话语录
+        elif fetch("开车") >= 0:
             text = f'开车就去: https://pornhub.com\n晕车请去: https://github.com'
             msg.sender.send(text)
-        elif str(msg.text).find("我不懂，自己想。想明白了告我") >= 0:
+
+        elif fetch("好骚"):
+            text = f'你怎么穿着品如的衣服'
+            msg.sender.send(text)
+
+        elif fetch("开花") or fetch("今年夏天") or fetch("战术后仰") or fetch("中美合拍"):
+            text = f'两开花 两开花'
+            msg.sender.send(text)
+
+        elif fetch("996") or fetch("icu") or fetch("加班"):
+            text = f'你不配做东哥的朋友，不配留在京东'
+            msg.sender.send(text)
+
+        elif fetch("冬瓜"):
+            text = f'别总叫冬瓜，冬瓜是你爸爸吗？'
+            msg.sender.send(text)
+
+        elif fetch("我不懂，自己想。想明白了告我") >= 0:
             text = f'那就死锁了'
             msg.sender.send(text)
+
+
         else:
             msg.sender.send("我不懂，自己想。想明白了告我。")
 
