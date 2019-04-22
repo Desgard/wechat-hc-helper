@@ -108,6 +108,9 @@ def reply_bytedance_jd(msg):
             _996calendar_url = "https://testflight.apple.com/join/G5anpfKw"
             text = f'Sepicat: {sepicat_url}\n996日历: {_996calendar_url}'
             msg.sender.send(text)
+        elif str(msg.text).find("我要学习") >= 0:
+            text = f'链接: https://pan.baidu.com/s/1e_vhVkCotwnUFZSL59w3xw \n 提取码: 65jv 复制这段内容后打开百度网盘手机App，操作更方便哦'
+            msg.sender.send(text)
         else:
             msg.sender.send("我不懂，自己想。想明白了告我。")
 
