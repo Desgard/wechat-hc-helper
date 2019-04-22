@@ -101,17 +101,20 @@ def reply_bytedance_jd(msg):
                     summary=item['summary'],
                     desc=item['description'])
             msg.sender.send(desc)
+
         elif str(msg.text).find("来一题") >= 0 or str(msg.text).find("换一题") >= 0:
             resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
             soup = BeautifulSoup(resp.content)
             title = soup.head.title.text
             url = resp.url
             msg.sender.send(f"{title}\n{url}")
+
         elif str(msg.text).lower().find("testflight") >= 0:
             sepicat_url = "https://testflight.apple.com/join/4ojQCz8z"
             _996calendar_url = "https://testflight.apple.com/join/G5anpfKw"
             text = f'Sepicat: {sepicat_url}\n996日历: {_996calendar_url}'
             msg.sender.send(text)
+
         elif str(msg.text).find("我要学习") >= 0:
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/study.json")
             result = json.loads(s=resp.text)
@@ -138,7 +141,7 @@ def reply_bytedance_jd(msg):
             msg.sender.send(text)
 
         elif fetch("996") or fetch("icu") or fetch("加班"):
-            text = f'你不配做东哥的朋友，不配留在京东'
+            text = f'你不配做东哥的兄弟，不配留在京东'
             msg.sender.send(text)
 
         elif fetch("冬瓜"):
@@ -148,7 +151,6 @@ def reply_bytedance_jd(msg):
         elif fetch("我不懂，自己想。想明白了告我") >= 0:
             text = f'那就死锁了'
             msg.sender.send(text)
-
 
         else:
             msg.sender.send("我不懂，自己想。想明白了告我。")
