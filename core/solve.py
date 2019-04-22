@@ -109,7 +109,16 @@ def reply_bytedance_jd(msg):
             text = f'Sepicat: {sepicat_url}\n996日历: {_996calendar_url}'
             msg.sender.send(text)
         elif str(msg.text).find("我要学习") >= 0:
-            text = f'链接: https://pan.baidu.com/s/1e_vhVkCotwnUFZSL59w3xw \n 提取码: 65jv'
+            resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/study.json")
+            result = json.loads(s=resp.text)
+            text = ""
+            if type(result) is list:
+                for dic in result:
+                    text += f'[{dic["title"]}]\n'
+                    text += f'{dic["desc"]}\n'
+            if len(text) <= 0:
+                text = "未获取到有效资源"
+
             msg.sender.send(text)
         elif str(msg.text).find("开车") >= 0:
             text = f'开车就去: https://pornhub.com\n晕车请去: https://github.com'
