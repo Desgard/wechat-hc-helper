@@ -144,7 +144,7 @@ def reply_bytedance_jd(msg):
             text = f'你不配做东哥的兄弟，不配留在京东'
             msg.sender.send(text)
 
-        elif fetch("冬瓜"):
+        elif str(msg.text).find("冬瓜") > 5:
             text = f'别总叫冬瓜，冬瓜是你爸爸吗？'
             msg.sender.send(text)
 
