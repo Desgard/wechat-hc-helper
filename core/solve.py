@@ -128,29 +128,9 @@ def reply_bytedance_jd(msg):
             msg.sender.send(text)
 
         # 傻屌对话语录
-        # elif fetch("开车"):
-        #     text = f'开车就去: https://pornhub.com\n晕车请去: https://github.com'
-        #     msg.sender.send(text)
-        #
-        # elif fetch("好骚"):
-        #     text = f'你怎么穿着品如的衣服'
-        #     msg.sender.send(text)
-        #
-        # elif fetch("开花") or fetch("今年夏天") or fetch("战术后仰") or fetch("中美合拍"):
-        #     text = f'两开花 两开花'
-        #     msg.sender.send(text)
-        #
-        # elif fetch("996") or fetch("icu") or fetch("加班"):
-        #     text = f'你不配做东哥的兄弟，不配留在京东'
-        #     msg.sender.send(text)
-        #
-        # elif str(msg.text).find("冬瓜") > 5:
-        #     text = f'别总叫冬瓜，冬瓜是你爸爸吗？'
-        #     msg.sender.send(text)
-        #
-        # elif fetch("我不懂，自己想。想明白了告我"):
-        #     text = f'那就死锁了'
-        #     msg.sender.send(text)
+        elif str(msg.text).find("冬瓜") > 5:
+            text = f'别总叫冬瓜，冬瓜是你爸爸吗？'
+            msg.sender.send(text)
         else:
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/AI.json")
             result = json.loads(s=resp.text)
