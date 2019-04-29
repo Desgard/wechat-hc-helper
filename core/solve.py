@@ -103,7 +103,7 @@ def reply_bytedance_jd(msg):
                     desc=item['description'])
             msg.sender.send(desc)
 
-        elif str(msg.text).find("来一题") >= 0 or str(msg.text).find("换一题") >= 0:
+        elif str(msg.text).find("一题") >= 0 or str(msg.text).find("题来") >= 0:
             resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
             soup = BeautifulSoup(resp.content)
             title = soup.head.title.text
