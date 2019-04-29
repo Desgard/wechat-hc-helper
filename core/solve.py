@@ -2,6 +2,7 @@ from wxpy import *
 from .bytedance import valid_bytedance_jd_query, query_bytedance_jd
 from log import logger
 from bs4 import BeautifulSoup
+import random
 
 import os
 import requests
@@ -139,6 +140,37 @@ def reply_bytedance_jd(msg):
                     if fetch(k):
                         msg.sender.send(v)
                         return
-            msg.sender.send("我不懂，自己想。想明白了告我。")
+            random_answer(msg=msg)
+
+
+def random_answer(msg):
+    index = random.randint(1, 2)
+    if index == 1:
+        msg.sender.send("别整那些没用的，先把这题做出来")
+        resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
+        soup = BeautifulSoup(resp.content)
+        title = soup.head.title.text
+        url = resp.url
+        msg.sender.send(f"{title}\n{url}")
+    elif index == 2:
+        car = [
+            "zex-201",
+            "SRS-022",
+            "ABP-108",
+            "ABP-119",
+            "CHN-037",
+            "ABP-138",
+            "ABP-145",
+            "MGSMPL-001",
+            "ABP-159",
+            "ABP-171",
+            "ABP-178",
+            "PPT-016",
+            "PPT-018",
+            "GNE-105",
+            "KRV-001",
+        ]
+        s = random.randint(0, len(car) - 1)
+        msg.sender.send(f"了解一下：{car[s]} ?? ")
 
 embed()
