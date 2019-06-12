@@ -110,7 +110,7 @@ def reply_bytedance_jd(msg):
             url = resp.url
             msg.sender.send(f"{title}\n{url}")
 
-        elif str(msg.text).lower().find("testflight") >= 0:
+        elif str(msg.text).lower().find("testflight") >= 0 or str(msg.text).lower().endswith("tf"):
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/testflight.json")
             result = json.loads(s=resp.text)
             txt = "Testflight 列表: \n"
