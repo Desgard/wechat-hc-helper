@@ -111,10 +111,12 @@ def reply_bytedance_jd(msg):
             msg.sender.send(f"{title}\n{url}")
 
         elif str(msg.text).lower().find("testflight") >= 0:
-            sepicat_url = "https://testflight.apple.com/join/4ojQCz8z"
-            _996calendar_url = "https://testflight.apple.com/join/G5anpfKw"
-            text = f'Sepicat: {sepicat_url}\n996日历: {_996calendar_url}'
-            msg.sender.send(text)
+            resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/testflight.json")
+            result = json.loads(s=resp.text)
+            txt = "Testflight 列表: \n"
+            for name, url in result.items():
+                txt += f'{name} - {url} \n'
+            msg.sender.send(txt)
 
         elif str(msg.text).find("我要学习") >= 0:
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/study.json")
