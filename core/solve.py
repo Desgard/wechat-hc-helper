@@ -110,9 +110,10 @@ def reply_bytedance_jd(msg):
             text = msg.text
             f = re.match(r'.+?tqp(\d+)', text)
             if f:
-                logger.info('query_id - {res}'.format(res=id))
-                if f.group(1) in result.keys():
-                    msg.sender.send(result[id])
+                logger.info('query_id - {res}'.format(result))
+                _id = f.group(1)
+                if _id in result.keys():
+                    msg.sender.send(result[_id])
                 else:
                     msg.sender.send("未找到提前批职位")
 
