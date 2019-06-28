@@ -7,6 +7,7 @@ import random
 import os
 import requests
 import json
+import re
 
 
 GROUP_NAME = "Sepicat"
@@ -102,6 +103,17 @@ def reply_bytedance_jd(msg):
                     summary=item['summary'],
                     desc=item['description'])
             msg.sender.send(desc)
+        elif str(msg.text).find("tqp") >= 0:
+            resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/tqp.json")
+            result: dict = json.loads(s=resp.text)
+            text = msg.text
+            f = re.match(r'提前批(\d+)', text)
+            if f:
+                id = f.group(1)
+                if id in result.keys():
+                    msg.sender.send(result[id])
+                else:
+                    msg.sender.send("未找到提前批职位")
 
         elif str(msg.text).find("一题") >= 0 or str(msg.text).find("题来") >= 0:
             resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
@@ -146,7 +158,7 @@ def reply_bytedance_jd(msg):
 
 
 def random_answer(msg):
-    index = random.randint(1, 2)
+    index = random.randint(1)
     if index == 1:
         msg.sender.send("别整那些没用的，先把这题做出来")
         resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
