@@ -110,7 +110,7 @@ def reply_bytedance_jd(msg):
             text = msg.text
             f = re.match(r'.+?tqp(\d+)', text)
             if f:
-                logger.info('query_id - {res}'.format(result))
+                logger.info('query_id - {res}'.format(res=result))
                 _id = f.group(1)
                 if _id in result.keys():
                     msg.sender.send(result[_id])
