@@ -103,14 +103,15 @@ def reply_bytedance_jd(msg):
                     summary=item['summary'],
                     desc=item['description'])
             msg.sender.send(desc)
-        elif str(msg.text).find("tqp") >= 0:
+        elif str(msg.text).lower().find("tqp") >= 0:
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/tqp.json")
             result: dict = json.loads(s=resp.text)
+            logger.info('query_res - {res}'.format(res=result))
             text = msg.text
-            f = re.match(r'提前批(\d+)', text)
+            f = re.match(r'tqp(\d+)', text)
             if f:
-                id = f.group(1)
-                if id in result.keys():
+                logger.info('query_id - {res}'.format(res=id))
+                if f.group(1) in result.keys():
                     msg.sender.send(result[id])
                 else:
                     msg.sender.send("未找到提前批职位")
