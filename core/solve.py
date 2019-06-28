@@ -108,7 +108,7 @@ def reply_bytedance_jd(msg):
             result: dict = json.loads(s=resp.text)
             logger.info('query_res - {res}'.format(res=result))
             text = msg.text
-            f = re.match(r'tqp(\d+)', text)
+            f = re.match(r'.+?tqp(\d+)', text)
             if f:
                 logger.info('query_id - {res}'.format(res=id))
                 if f.group(1) in result.keys():
