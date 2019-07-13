@@ -136,7 +136,7 @@ def reply_bytedance_jd(msg):
         elif str(msg.text).lower().find("g-driver") >= 0:
             infos = fetch_old_driver_list()
             text = f'老司机周报 {infos[0]["updated"]} 期: \n\n'
-            for index, info in infos:
+            for index, info in enumerate(infos):
                 text += f'{index}. {info["title"]}\n'
                 text += info["link"] + '\n\n'
             msg.sender.send(text)
