@@ -138,7 +138,7 @@ def reply_bytedance_jd(msg):
             text = f'老司机周报 {infos[0]["updated"]} 期: \n\n'
             for index, info in infos:
                 text += f'{index}. {info["title"]}\n'
-                text += info["ink"] + '\n\n'
+                text += info["link"] + '\n\n'
             msg.sender.send(text)
 
         elif str(msg.text).find("一题") >= 0 or str(msg.text).find("题来") >= 0:

@@ -31,4 +31,5 @@ def fetch_old_driver_list() -> list:
     return result
 
 if __name__ == '__main__':
-    fetch_old_driver_list()
+    res = fetch_old_driver_list()
+    print(res)
