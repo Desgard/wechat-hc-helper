@@ -134,11 +134,11 @@ def reply_bytedance_jd(msg):
         
         # 水友群功能 - Old Driver 周报
         elif str(msg.text).lower().find("g-driver") >= 0:
-            infos = fetch_old_driver_list
-            text = f'老司机周报 {infos[0]['updated']} 期: \n\n'
+            infos = fetch_old_driver_list()
+            text = f'老司机周报 {infos[0]["updated"]} 期: \n\n'
             for index, info in infos:
-                text += f'{index}. {info['title']}\n'
-                text += info['link'] + '\n\n'
+                text += f'{index}. {info["title"]}\n'
+                text += info["ink"] + '\n\n'
             msg.sender.send(text)
 
         elif str(msg.text).find("一题") >= 0 or str(msg.text).find("题来") >= 0:
