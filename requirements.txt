@@ -8,6 +8,7 @@ bs4==0.0.1
 certifi==2019.3.9
 chardet==3.0.4
 decorator==4.4.0
+feedparser==5.2.1
 future==0.17.1
 idna==2.8
 idna-ssl==1.1.0
