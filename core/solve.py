@@ -1,6 +1,7 @@
 from wxpy import *
 from .bytedance import valid_bytedance_jd_query, query_bytedance_jd
 from .github import fetch_trending
+from .old_driver import fetch_old_driver_list
 from log import logger
 from bs4 import BeautifulSoup
 import random
@@ -104,6 +105,7 @@ def reply_bytedance_jd(msg):
                     summary=item['summary'],
                     desc=item['description'])
             msg.sender.send(desc)
+
         elif str(msg.text).lower().find("tqp") >= 0:
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/tqp.json")
             result: dict = json.loads(s=resp.text)
@@ -118,6 +120,7 @@ def reply_bytedance_jd(msg):
                 else:
                     msg.sender.send("未找到提前批职位")
 
+        # 水友群功能 - GitHub Trending
         elif str(msg.text).lower().find("g-rank") >= 0:
             trendings = fetch_trending()
             text = "当前 GitHub Trending Rank: \n\n"
@@ -127,6 +130,15 @@ def reply_bytedance_jd(msg):
                 text += repo["desc"] + "\n"
                 text += "⭐️ " + repo["star"] + "\n"
                 text += "\n"
+            msg.sender.send(text)
+        
+        # 水友群功能 - Old Driver 周报
+        elif str(msg.text).lower().find("g-driver") >= 0:
+            infos = fetch_old_driver_list
+            text = f'老司机周报 {infos[0]['updated']} 期: \n\n'
+            for index, info in infos:
+                text += f'{index}. {info['title']}\n'
+                text += info['link'] + '\n\n'
             msg.sender.send(text)
 
         elif str(msg.text).find("一题") >= 0 or str(msg.text).find("题来") >= 0:
