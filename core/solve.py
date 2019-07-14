@@ -202,7 +202,7 @@ def send_news():
         text += f'{send_content["link"]}\n\n'
 
         # 每日一题
-        text = "0x01 每日一题\n"
+        text += "0x01 每日一题\n"
         resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
         soup = BeautifulSoup(resp.content)
         title = soup.head.title.text
