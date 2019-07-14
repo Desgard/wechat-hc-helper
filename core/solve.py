@@ -4,6 +4,8 @@ from .github import fetch_trending
 from .old_driver import fetch_old_driver_list
 from log import logger
 from bs4 import BeautifulSoup
+from threading import Timer
+
 import random
 
 import os
@@ -183,6 +185,30 @@ def reply_bytedance_jd(msg):
             random_answer(msg=msg)
 
 
+def send_news():
+    try:
+        # 每日老司机周报
+        contents = fetch_old_driver_list()
+        group = bot.groups().search(u"Sepicat")[0]
+        index = random.randint(0, len(contents) - 1)
+        send_content = contents[index]
+        title = send_content['title']
+        while title.find('优惠') >= 0 or title.find('销售') >= 0 or title.find('内推') >= 0 or title.find('免费') >= 0:
+            index = random.randint(0, len(contents) - 1)
+            send_content = contents[index]
+            title = send_content['title']
+        text = "今日学习 \n\n"
+        text += f'0x00 老司机周报随机文章：《{send_content["title"]}》\n'
+        text += f'     {send_content["link"]}\n'
+
+        t = Timer(10, send_news)
+        t.start()
+
+    except:
+        host = bot.friends().search(u'冬瓜')[0]
+        host.send(u'今天每日新闻发失败了')
+
+
 def random_answer(msg):
     index = random.randint(1, 1)
     if index == 1:
@@ -213,4 +239,6 @@ def random_answer(msg):
         s = random.randint(0, len(car) - 1)
         msg.sender.send(f"了解一下：{car[s]} ?? ")
 
+
+send_news()
 embed()
