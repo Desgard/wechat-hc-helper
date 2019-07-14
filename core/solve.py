@@ -189,7 +189,7 @@ def send_news():
     try:
         # 每日老司机周报
         contents = fetch_old_driver_list()
-        group = bot.groups().search(u"一瓜共食")[0]
+        group = bot.groups().search(u"一瓜共识")[0]
         index = random.randint(0, len(contents) - 1)
         send_content = contents[index]
         title = send_content['title']
