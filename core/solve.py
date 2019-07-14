@@ -201,7 +201,7 @@ def send_news():
         text += f'0x00 老司机周报随机文章：《{send_content["title"]}》\n'
         text += f'     {send_content["link"]}\n'
 
-        t = Timer(10, send_news)
+        t = Timer(60, send_news)
         t.start()
 
     except:
