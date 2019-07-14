@@ -200,10 +200,10 @@ def send_news():
         text = "今日学习 \n\n"
         text += f'0x00 老司机周报随机文章：《{send_content["title"]}》\n'
         text += f'     {send_content["link"]}\n'
+        group.send(text)
 
         t = Timer(60, send_news)
         t.start()
-
     except:
         host = bot.friends().search(u'冬瓜')[0]
         host.send(u'今天每日新闻发失败了')
