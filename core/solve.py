@@ -189,7 +189,7 @@ def send_news():
     try:
         # 每日老司机周报
         contents = fetch_old_driver_list()
-        group = bot.groups().search(u"Sepicat")[0]
+        group = bot.groups().search(u"一瓜共食")[0]
         index = random.randint(0, len(contents) - 1)
         send_content = contents[index]
         title = send_content['title']
@@ -198,11 +198,21 @@ def send_news():
             send_content = contents[index]
             title = send_content['title']
         text = "今日学习 \n\n"
-        text += f'0x00 老司机周报随机文章：《{send_content["title"]}》\n'
-        text += f'     {send_content["link"]}\n'
+        text += f'0x00 老司机周报随机文章\n《{send_content["title"]}》\n'
+        text += f'{send_content["link"]}\n\n'
+
+        # 每日一题
+        text = "0x01 每日一题\n"
+        resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
+        soup = BeautifulSoup(resp.content)
+        title = soup.head.title.text
+        url = resp.url
+        text += f'《{title}》\n'
+        text += f'{url}'
         group.send(text)
 
-        t = Timer(60, send_news)
+        day = 60 * 60 * 24
+        t = Timer(day, send_news)
         t.start()
     except:
         host = bot.friends().search(u'冬瓜')[0]
