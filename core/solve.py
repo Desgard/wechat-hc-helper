@@ -2,6 +2,7 @@ from wxpy import *
 from .bytedance import valid_bytedance_jd_query, query_bytedance_jd
 from .github import fetch_trending
 from .old_driver import fetch_old_driver_list
+from .awesome_tips import fetch_awesome_tips_list
 from log import logger
 from bs4 import BeautifulSoup
 from threading import Timer
@@ -93,6 +94,13 @@ def reply_bytedance_jd(msg):
             title = soup.head.title.text
             url = resp.url
             msg.sender.send(f"{title}\n{url}")
+
+        elif str(msg.text).find("知识小集") >= 0:
+            res: list = fetch_awesome_tips_list()
+            index = random.randint(1, len(res) - 1)
+            text = "那就给你来一个😎\n"
+            text += f'{res[index]["title"]}\n{res[index]["link"]}'
+            msg.sender.send(text)
 
         elif str(msg.text).lower().find("testflight") >= 0 or str(msg.text).lower().endswith("tf"):
             resp = requests.get("https://raw.githubusercontent.com/Desgard/wechat-hc-helper/master/core/testflight.json")

@@ -30,6 +30,7 @@ def fetch_old_driver_list() -> list:
         result.append(current_info)
     return result
 
+
 if __name__ == '__main__':
     res = fetch_old_driver_list()
     print(res)
