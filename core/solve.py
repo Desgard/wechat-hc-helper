@@ -29,7 +29,11 @@ guagua = bot.friends().search("冬瓜")
 @bot.register(guagua, msg_types=TEXT)
 def _111(msg):
     if str(msg.text).lower() == "guaguagua":
-        send_news()
+        send_news(group_name="一瓜共识")
+    elif str(msg.text).lower() == "guaguagua_test":
+        send_news(group_name="Sepicat")
+    msg.sender.send("每日一题发送成功")
+
 
 
 @bot.register(bot.groups(), msg_types=TEXT)
@@ -80,7 +84,7 @@ def reply_bytedance_jd(msg):
             msg.sender.send(text)
         
         # 水友群功能 - Old Driver 周报
-        elif str(msg.text).lower().find("g-driver") >= 0:
+        elif str(msg.text).lower().find("g-driver") or str(msg.text).lower().find("老司机") >= 0:
             infos = fetch_old_driver_list()
             text = f'老司机周报 {infos[0]["updated"]} 期: \n\n'
             for index, info in enumerate(infos):
@@ -137,11 +141,11 @@ def reply_bytedance_jd(msg):
             random_answer(msg=msg)
 
 
-def send_news():
+def send_news(group_name: str):
     try:
         # 每日老司机周报
         contents = fetch_old_driver_list()
-        group = bot.groups().search(u"一瓜共识")[0]
+        group = bot.groups().search(group_name)[0]
         index = random.randint(0, len(contents) - 1)
         send_content = contents[index]
         title = send_content['title']
@@ -149,7 +153,9 @@ def send_news():
             index = random.randint(0, len(contents) - 1)
             send_content = contents[index]
             title = send_content['title']
-        text = "今日学习 \n\n"
+
+        note = ' - test' if group_name == 'Sepicat' else ''
+        text = f"今日学习 {note}\n\n"
         text += f'0x00 老司机周报随机文章\n《{send_content["title"]}》\n'
         text += f'{send_content["link"]}\n\n'
 
@@ -160,12 +166,16 @@ def send_news():
         title = soup.head.title.text
         url = resp.url
         text += f'《{title}》\n'
-        text += f'{url}'
+        text += f'{url}\n\n'
+
+        # 知识小集
+        text += "0x02 知识小集\n"
+        res: list = fetch_awesome_tips_list()
+        index = random.randint(1, len(res) - 1)
+        text += f'《{res[index]["title"]}》\n{res[index]["link"]}'
+
         group.send(text)
 
-        day = 60 * 60 * 24
-        t = Timer(day, send_news)
-        t.start()
     except:
         host = bot.friends().search(u'冬瓜')[0]
         host.send(u'今天每日新闻发失败了')
