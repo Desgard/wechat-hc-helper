@@ -30,9 +30,10 @@ guagua = bot.friends().search("冬瓜")
 def _111(msg):
     if str(msg.text).lower() == "guaguagua":
         send_news(group_name="一瓜共识")
+        msg.sender.send("每日一题发送成功")
     elif str(msg.text).lower() == "guaguagua_test":
         send_news(group_name="Sepicat")
-    msg.sender.send("每日一题发送成功")
+        msg.sender.send("每日一题发送成功")
 
 
 
