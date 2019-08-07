@@ -85,7 +85,7 @@ def reply_bytedance_jd(msg):
             msg.sender.send(text)
         
         # 水友群功能 - Old Driver 周报
-        elif str(msg.text).lower().find("g-driver") or str(msg.text).lower().find("老司机") >= 0:
+        elif str(msg.text).lower().find("g-driver") >= 0 or str(msg.text).lower().find("老司机") >= 0:
             infos = fetch_old_driver_list()
             text = f'老司机周报 {infos[0]["updated"]} 期: \n\n'
             for index, info in enumerate(infos):
