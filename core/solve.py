@@ -163,20 +163,20 @@ def send_news(group_name: str):
         # 每日一题
         text += "0x01 每日一题\n"
         resp = requests.get("https://leetcode-cn.com/classic/problems/random-one-question/all")
-        soup = BeautifulSoup(resp.content)
+        soup = BeautifulSoup(resp.content, "html.parser")
         title = soup.head.title.text
         url = resp.url
         text += f'《{title}》\n'
         text += f'{url}\n\n'
 
         # 知识小集
-        text += "0x02 知识小集\n"
-        res: list = fetch_awesome_tips_list()
-        index = random.randint(1, len(res) - 1)
-        text += f'《{res[index]["title"]}》\n{res[index]["link"]}'
+        # text += "0x02 知识小集\n"
+        # res: list = fetch_awesome_tips_list()
+        # index = random.randint(1, len(res) - 1)
+        # text += f'《{res[index]["title"]}》\n{res[index]["link"]}'
 
         # 极客时间红包
-        text += "0x03 每日福利\n"
+        text += "0x02 每日福利\n"
         text += "极客时间打卡红包\n"
         text += "https://promo.geekbang.org/activity/v2/checkin"
 
