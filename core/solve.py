@@ -175,6 +175,11 @@ def send_news(group_name: str):
         index = random.randint(1, len(res) - 1)
         text += f'《{res[index]["title"]}》\n{res[index]["link"]}'
 
+        # 极客时间红包
+        text += "0x03 每日福利\n"
+        text += "极客时间打卡红包\n"
+        text += "https://promo.geekbang.org/activity/v2/checkin"
+
         group.send(text)
 
     except:
