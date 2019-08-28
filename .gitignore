@@ -3,3 +3,4 @@ wxpy.pkl
 core/__pycache__/
 log/
 .vscode/
+*.db
