@@ -86,7 +86,7 @@ def reply_bytedance_jd(msg):
                 txt = ''
                 txt += f'今日一血\n{res[0]["user"]}:{res[0]["solve"]}\n----\n\n'
                 for i in range(1, len(res)):
-                    txt += f'{res[i]["user"]}: {res[i]["solve"]}'
+                    txt += f'{res[i]["user"]} \n{res[i]["solve"]}\n\n'
                 msg.sender.send(txt)
 
         # 水友群功能 - GitHub Trending
