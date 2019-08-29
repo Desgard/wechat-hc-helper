@@ -105,6 +105,7 @@ def reply_bytedance_jd(msg):
                     elif c >= 7:
                         txt += f'[{n}] \nLengendary. 超神了！\n\n'
 
+                txt += f'共 {len(res_counter)} 人完成打卡，未击杀的同学再接再厉 💪'
                 # for i in range(1, len(res)):
                 #     txt += f'{res[i]["user"]} \n{res[i]["solve"]}\n\n'
                 # txt += f'统计：今日打卡题目共 {len(res)} 道。大家继续加油'
