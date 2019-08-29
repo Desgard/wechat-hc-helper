@@ -6,15 +6,16 @@ from source.awesome_tips import fetch_awesome_tips_list
 from log import logger
 from bs4 import BeautifulSoup
 
-import random
+from db import bot_buz as db
 
+import random
 import requests
 import json
 import re
 
 
 GROUP_NAME = "Sepicat"
-bot = Bot(console_qr=True, cache_path=True)
+bot = Bot(console_qr=False, cache_path=True)
 friends = bot.friends
 guagua = bot.friends().search("冬瓜")
 
@@ -55,9 +56,18 @@ def reply_bytedance_jd(msg):
             msg.sender.send(desc)
 
         elif str(msg.text).lower().find("算法打卡") >= 0:
-            logger.log("打卡操作，写数据库")
-
-            pass
+            logger.info("打卡操作，写数据库")
+            print(msg)
+            print(msg.member.name)
+            user_name = msg.member.name
+            pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+            url = re.findall(pattern, msg.text)
+            if len(url) > 0:
+                u = url[0]
+                db.insert_punch_on(user_name=user_name, solve_link=u)
+                msg.sender.send(f'{user_name} 真棒👍\n 打卡链接：{u}')
+            else:
+                msg.sender.send(f'{user_name}, 未发现打卡链接哦。打卡失败了😭')
 
         # 水友群功能 - GitHub Trending
         elif str(msg.text).lower().find("g-rank") >= 0:
@@ -160,6 +170,11 @@ def send_news(group_name: str):
         text += "0x02 每日福利\n"
         text += "极客时间打卡红包\n"
         text += "https://promo.geekbang.org/activity/v2/checkin"
+
+        # db 写入
+        db.insert_daily_task(question_link=url, learning_link=send_content["link"], msg=text)
+
+        group.send(text)
 
     except:
         host = bot.friends().search(u'冬瓜')[0]
