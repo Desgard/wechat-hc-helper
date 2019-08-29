@@ -11,6 +11,10 @@ def insert_daily_task(question_link: str, learning_link: str, msg: str) -> bool:
     增加每日一题
     :return:
     """
+    exist, _ = check_daily_exist()
+    if exist:
+        return False
+
     now = datetime.datetime.now()
     daily_task = DailyTask(create_date=now,
                            create_day=now.strftime('%Y-%m-%d'),
@@ -44,3 +48,35 @@ def insert_punch_on(user_name: str, solve_link: str) -> bool:
         return True
 
     return False
+
+def check_daily_exist() -> (bool, str):
+    """
+    检查是否有每日一题
+    :return:
+    """
+    now = datetime.datetime.now()
+    day = now.strftime('%Y-%m-%d')
+    q = list(session.query(DailyTask).filter(DailyTask.create_day == day))
+    exist = len(q) > 0
+    if exist:
+        daily_task = q[0]
+        link = daily_task.question_link
+        return exist, link
+    return exist, None
+
+def check_daily_rank(day: str = None) -> list:
+    """
+    查看某一天榜单
+    :param day:
+    :return:
+    """
+    if day is None:
+        now = datetime.datetime.now()
+        day = now.strftime('%Y-%m-%d')
+    q = list(session.query(DailyTask).filter(DailyTask.create_day == day))
+    if len(q) > 0:
+        daily_task_id = q[0].id
+        punches = list(session.query(QuestionPunchOn).filter(daily_task_id == daily_task_id))
+        res = [{'user': p.user_name, 'solve': p.solve_link} for p in punches]
+        return res
+    return []

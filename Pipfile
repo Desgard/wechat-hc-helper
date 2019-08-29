@@ -12,9 +12,6 @@ requests = "*"
 ipython = "*"
 bs4 = "*"
 sqlalchemy = "*"
-sqlite3 = "*"
-pysqlite3 = "*"
-pysqlite = "*"
 
 [requires]
 python_version = "3.6.6"

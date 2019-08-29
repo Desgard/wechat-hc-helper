@@ -69,6 +69,26 @@ def reply_bytedance_jd(msg):
             else:
                 msg.sender.send(f'{user_name}, 未发现打卡链接哦。打卡失败了😭')
 
+        elif str(msg.text).lower().find("今日习题") >= 0:
+            logger.info("今日习题")
+            exist, link = db.check_daily_exist()
+            if exist:
+                msg.sender.send(f'今日习题：{link}')
+            else:
+                msg.sender.send(f'今日瓜瓜还未发布习题。别着急，先休息。😘')
+
+        elif str(msg.text).lower().find("Top") >= 0:
+            logger.info("今日 Top")
+            res = db.check_daily_rank()
+            if len(res) <= 0:
+                msg.sender.send("还没人打卡呢，大家加油💪")
+            else:
+                txt = ''
+                txt += f'今日一血\n{res[0]["user"]}:{res[0]["solve"]}\n----\n\n'
+                for i in range(1, len(res)):
+                    txt += f'{res[i]["user"]}: {res[i]["solve"]}'
+                msg.sender.send(txt)
+
         # 水友群功能 - GitHub Trending
         elif str(msg.text).lower().find("g-rank") >= 0:
             trendings = fetch_trending()
