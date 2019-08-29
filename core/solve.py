@@ -77,7 +77,7 @@ def reply_bytedance_jd(msg):
             else:
                 msg.sender.send(f'今日瓜瓜还未发布习题。别着急，先休息。😘')
 
-        elif str(msg.text).lower().find("Top") >= 0:
+        elif str(msg.text).lower().find("top") >= 0:
             logger.info("今日 Top")
             res = db.check_daily_rank()
             if len(res) <= 0:
