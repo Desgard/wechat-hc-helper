@@ -78,38 +78,7 @@ def reply_bytedance_jd(msg):
                 msg.sender.send(f'今日瓜瓜还未发布习题。别着急，先休息。😘')
 
         elif str(msg.text).lower().find("kda") >= 0:
-            logger.info("今日 Top")
-            res = db.check_daily_rank()
-            if len(res) <= 0:
-                msg.sender.send("还没人打卡呢，大家加油💪")
-            else:
-                txt = ''
-                txt += f'[{res[0]["user"]}] \nFirst Blood. 一血\n\n{res[0]["solve"]}\n----\n\n'
-                res_list = [i["user"] for i in res]
-                import collections
-                res_counter = collections.Counter(res_list)
-                print(res_counter)
-                for n, c in res_counter.items():
-                    if c == 1:
-                        txt += f'[{n}] \nSlain one. 单杀\n\n'
-                    elif c == 2:
-                        txt += f'[{n}] \nDouble Kill. 双杀\n\n'
-                    elif c == 3:
-                        txt += f'[{n}] \nKilling Spree. 击杀三题\n\n'
-                    elif c == 4:
-                        txt += f'[{n}] \nRampage. 击杀四题\n\n'
-                    elif c == 5:
-                        txt += f'[{n}] \nUnstoppable. 击杀五题，势不可挡\n\n'
-                    elif c == 6:
-                        txt += f'[{n}] \nGodlike. 击杀六题，横扫千军\n\n'
-                    elif c >= 7:
-                        txt += f'[{n}] \nLengendary. 超神了！\n\n'
-
-                txt += f'共 {len(res_counter)} 人完成打卡，未击杀的同学再接再厉 💪'
-                # for i in range(1, len(res)):
-                #     txt += f'{res[i]["user"]} \n{res[i]["solve"]}\n\n'
-                # txt += f'统计：今日打卡题目共 {len(res)} 道。大家继续加油'
-                msg.sender.send(txt)
+            msg.sender.send(kda_msg())
 
         # 水友群功能 - GitHub Trending
         elif str(msg.text).lower().find("g-rank") >= 0:
@@ -180,8 +149,50 @@ def reply_bytedance_jd(msg):
                         msg.sender.send(v)
                         return
 
+def kda_msg() -> str:
+    """
+    当日排名
+    :param group_name:
+    :param completion:
+    :return:
+    """
+    logger.info("今日 Top")
+    res = db.check_daily_rank()
+    if len(res) <= 0:
+        return "还没人打卡呢，大家加油💪"
+    else:
+        txt = ''
+        txt += f'[{res[0]["user"]}] \nFirst Blood. 一血\n\n{res[0]["solve"]}\n----\n\n'
+        res_list = [i["user"] for i in res]
+        import collections
+        res_counter = collections.Counter(res_list)
+        print(res_counter)
+        for n, c in res_counter.items():
+            if c == 1:
+                txt += f'[{n}] \nSlain one. 单杀\n\n'
+            elif c == 2:
+                txt += f'[{n}] \nDouble Kill. 双杀\n\n'
+            elif c == 3:
+                txt += f'[{n}] \nKilling Spree. 击杀三题\n\n'
+            elif c == 4:
+                txt += f'[{n}] \nRampage. 击杀四题\n\n'
+            elif c == 5:
+                txt += f'[{n}] \nUnstoppable. 击杀五题，势不可挡\n\n'
+            elif c == 6:
+                txt += f'[{n}] \nGodlike. 击杀六题，横扫千军\n\n'
+            elif c >= 7:
+                txt += f'[{n}] \nLengendary. 超神了！\n\n'
+
+        txt += f'共 {len(res_counter)} 人完成打卡，未击杀的同学再接再厉 💪'
+        return txt
+
 
 def send_news(group_name: str):
+    """
+    每日通告
+    :param group_name:
+    :return:
+    """
     try:
         # 每日老司机周报
         contents = fetch_old_driver_list()

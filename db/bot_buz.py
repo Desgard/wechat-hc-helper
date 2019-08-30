@@ -76,7 +76,7 @@ def check_daily_rank(day: str = None) -> list:
     q = list(session.query(DailyTask).filter(DailyTask.create_day == day))
     if len(q) > 0:
         daily_task_id = q[0].id
-        punches = list(session.query(QuestionPunchOn).filter(daily_task_id == daily_task_id))
+        punches = list(session.query(QuestionPunchOn).filter(QuestionPunchOn.daily_task_id == daily_task_id))
         res = [{'user': p.user_name, 'solve': p.solve_link} for p in punches]
         return res
     return []
